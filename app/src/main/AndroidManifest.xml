@@ -19,8 +19,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".listado_principal"
-            android:label="@string/title_activity_listado_principal"
+            android:name=".ListadoAlimentos"
+            android:label="@string/title_activity_listado_alimentos"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -30,7 +30,7 @@ public class Alimentacion extends AppCompatActivity {
         BT_Listado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Alimentacion.this,listado_principal.class);
+                Intent i = new Intent(Alimentacion.this,ListadoAlimentos.class);
                 startActivity(i);
             }
         });
