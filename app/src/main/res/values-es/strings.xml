@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">ProxectoAlimentos</string>
+    <string name="LM_Saludo">Bienvenido</string>
+    <string name="LM_BT1">Consultar alimentos</string>
+    <string name="LM_BT2">Formar un menú</string>
+</resources>

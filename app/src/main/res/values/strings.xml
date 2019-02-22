@@ -1,6 +1,25 @@
 <resources>
+    <string-array name="Tablas">
+        <item>bebidas</item>
+        <item>cereais e derivados</item>
+        <item>froita</item>
+        <item>legumes</item>
+        <item>lácteos</item>
+        <item>ovos</item>
+        <item>sementes e froitos secos</item>
+        <item>verduras e hortalizas</item>
+    </string-array>
+
+
     <string name="app_name">ProxectoAlimentos</string>
     <string name="LM_Saludo">Benvido</string>
     <string name="LM_BT1">Consultar alimentos</string>
-    <string name="LM_BT2">Formar un menú</string>
+    <string name="LM_BT2">Consultar un menú</string>
+    <string name="title_activity_listado_principal">listado_principal</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 </resources>
