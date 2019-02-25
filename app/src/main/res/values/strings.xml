@@ -7,7 +7,7 @@
         <item>lácteos</item>
         <item>ovos</item>
         <item>sementes e froitos secos</item>
-        <item>verduras e hortalizas.</item>
+        <item>verduras e hortalizas</item>
     </string-array>
 
 
@@ -15,6 +15,19 @@
     <string name="LM_Saludo">Benvido</string>
     <string name="LM_BT1">Consultar alimentos</string>
     <string name="LM_BT2">Consultar un menú</string>
+    <string name="Tabla0">Todos</string>
+    <string name="Tabla1">Bebidas</string>
+    <string name="Tabla2">Cereais e derivados</string>
+    <string name="Tabla3">Froita</string>
+    <string name="Tabla4">Legumes</string>
+    <string name="Tabla5">Lácteos</string>
+    <string name="Tabla6">Ovos</string>
+    <string name="Tabla7">Sementes e froitos secos</string>
+    <string name="Tabla8">Verduras e hortalizas</string>
+    <string name="Azucar">Azucres simples(g)</string>
+    <string name="Grasa">Graxas saturadas(g)</string>
+    <string name="Sodio">Sodio(mg)</string>
+
     <string name="title_activity_listado_principal">listado_principal</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

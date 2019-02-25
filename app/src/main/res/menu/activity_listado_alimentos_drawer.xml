@@ -5,36 +5,40 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/Cons_Beb"
+            android:id="@+id/Cons_0"
             android:icon="@drawable/iconmenu"
-            android:title="Import" />
+            android:title="@string/Tabla0" />
+        <item
+            android:id="@+id/Cons_1"
+            android:icon="@drawable/iconmenu"
+            android:title="@string/Tabla1" />
         <item
             android:id="@+id/Cons_2"
             android:icon="@drawable/iconmenu"
-            android:title="Import" />
+            android:title="@string/Tabla2" />
         <item
             android:id="@+id/Cons_3"
             android:icon="@drawable/iconmenu"
-            android:title="Import" />
+            android:title="@string/Tabla3" />
         <item
             android:id="@+id/Cons_4"
             android:icon="@drawable/iconmenu"
-            android:title="Import" />
+            android:title="@string/Tabla4" />
         <item
             android:id="@+id/Cons_5"
             android:icon="@drawable/iconmenu"
-            android:title="Import" />
+            android:title="@string/Tabla5" />
         <item
             android:id="@+id/Cons_6"
             android:icon="@drawable/iconmenu"
-            android:title="Import" />
+            android:title="@string/Tabla6" />
         <item
             android:id="@+id/Cons_7"
             android:icon="@drawable/iconmenu"
-            android:title="Import" />
+            android:title="@string/Tabla7" />
         <item
             android:id="@+id/Cons_8"
             android:icon="@drawable/iconmenu"
-            android:title="Import" />
+            android:title="@string/Tabla8" />
     </group>
 </menu>

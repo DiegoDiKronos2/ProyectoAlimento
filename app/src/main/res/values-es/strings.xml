@@ -1,7 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="Tablas">
+        <item>bebidas</item>
+        <item>cereais e derivados</item>
+        <item>froita</item>
+        <item>legumes</item>
+        <item>lácteos</item>
+        <item>ovos</item>
+        <item>sementes e froitos secos</item>
+        <item>verduras e hortalizas</item>
+    </string-array>
+
     <string name="app_name">ProxectoAlimentos</string>
     <string name="LM_Saludo">Bienvenido</string>
     <string name="LM_BT1">Consultar alimentos</string>
     <string name="LM_BT2">Formar un menú</string>
+    <string name="Tabla0">Todos</string>
+    <string name="Tabla1">Bebidas</string>
+    <string name="Tabla2">Cereales y derivados</string>
+    <string name="Tabla3">Fruta</string>
+    <string name="Tabla4">Legumbres</string>
+    <string name="Tabla5">Lácteos</string>
+    <string name="Tabla6">Huevos</string>
+    <string name="Tabla7">Semillas y frutos secos</string>
+    <string name="Tabla8">Verduras y hortalizas</string>
+    <string name="Azucar">Azucares simples(g)</string>
+    <string name="Grasa">Grasas saturadas(g)</string>
+    <string name="Sodio">Sodio(mg)</string>
+
+    <string name="title_activity_listado_principal">listado_principal</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_listado_alimentos">ListadoAlimentos</string>
 </resources>
