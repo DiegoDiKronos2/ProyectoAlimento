@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="Tablas">
+
         <item>bebidas</item>
         <item>cereais e derivados</item>
         <item>froita</item>
@@ -8,7 +9,7 @@
         <item>lácteos</item>
         <item>ovos</item>
         <item>sementes e froitos secos</item>
-        <item>verduras e hortalizas</item>
+        <item>verduras</item>
     </string-array>
 
     <string name="app_name">ProxectoAlimentos</string>

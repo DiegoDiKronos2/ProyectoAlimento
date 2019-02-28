@@ -3,11 +3,10 @@ package com.example.a16diegovs.proyectoalimentos;
 import android.widget.ImageView;
 
 public class Alimento {
-    String Nombre;
-    float Azucar,Grasa,Sodio;
+    String Nombre,Azucar,Grasa,Sodio;
     boolean Liquid;
 
-    public Alimento(String nombre, float azucar, float grasa, float sodio) {
+    public Alimento(String nombre, String azucar, String grasa, String sodio) {
         Nombre = nombre;
         Azucar = azucar;
         Grasa = grasa;
@@ -30,27 +29,27 @@ public class Alimento {
         Nombre = nombre;
     }
 
-    public float getAzucar() {
+    public String getAzucar() {
         return Azucar;
     }
 
-    public void setAzucar(float azucar) {
+    public void setAzucar(String azucar) {
         Azucar = azucar;
     }
 
-    public float getGrasa() {
+    public String getGrasa() {
         return Grasa;
     }
 
-    public void setGrasa(float grasa) {
+    public void setGrasa(String grasa) {
         Grasa = grasa;
     }
 
-    public float getSodio() {
+    public String getSodio() {
         return Sodio;
     }
 
-    public void setSodio(float sodio) {
+    public void setSodio(String sodio) {
         Sodio = sodio;
     }
 }

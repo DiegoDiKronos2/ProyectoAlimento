@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorTintro">#ffffff</color>
+    <color name="Verde">#30CC37</color>
+    <color name="Amarillo">#E4D129</color>
+    <color name="Rojo">#E41616</color>
 </resources>

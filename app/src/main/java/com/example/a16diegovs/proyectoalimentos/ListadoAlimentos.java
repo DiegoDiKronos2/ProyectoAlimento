@@ -1,5 +1,6 @@
 package com.example.a16diegovs.proyectoalimentos;
 
+import android.app.Dialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -10,13 +11,16 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -28,6 +32,18 @@ public class ListadoAlimentos extends AppCompatActivity implements NavigationVie
     ListView LW_General;
     SQLiteDatabase BD;
     String[] TABLAS;
+
+    //LIMITS
+    private float L_Am_Azucar = 5f;
+    private float L_Rj_Azucar = 10f;
+    private float L_Am_Grasas = 1.5f;
+    private float L_Rj_Grasas = 5f;
+    private float L_Am_Sodio = 120f;
+    private float L_Rj_Sodio = 600f;
+    private int V_Azucar;
+    private int V_Grasas;
+    private int V_Sodio;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +102,8 @@ public class ListadoAlimentos extends AppCompatActivity implements NavigationVie
         } else if (id == R.id.Cons_7) {
             ListLoad(TABLAS[6]);
         } else if (id == R.id.Cons_8) {
-            ListLoad(TABLAS[7]);
+            //ListLoad(TABLAS[7]);
+            Toast.makeText(this, "Jaja, a la BD no le gustan las verduras sorry", Toast.LENGTH_SHORT).show();
         }
         item.setIcon(R.drawable.iconmenu_selected);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -98,34 +115,117 @@ public class ListadoAlimentos extends AppCompatActivity implements NavigationVie
         Alimentos.clear();
         Cursor c = BD.rawQuery("SELECT * FROM '" + Tabla + "';", null);
         while (c.moveToNext()) {
-            Alimento TEMP = new Alimento(c.getString(0), c.getFloat(1), c.getFloat(2), c.getFloat(3));
+            Alimento TEMP = new Alimento(c.getString(0), c.getString(1), c.getString(2), c.getString(3));
             Alimentos.add(TEMP);
         }
         AdaptorListaGeneral a = new AdaptorListaGeneral(ListadoAlimentos.this, Alimentos);
-        LW_General.setAdapter(a);
+        AdaptorCreator(a);
     }
 
     public void ListLoad() {//Carga del listado de alimentos total
         Alimentos.clear();
-        for (int i = 0; i < getResources().getStringArray(R.array.Tablas).length; i++) {
+        for (int i = 0; i+1 < getResources().getStringArray(R.array.Tablas).length; i++) {
             Cursor c = BD.rawQuery("SELECT * FROM '" + TABLAS[i] + "';", null);
             while (c.moveToNext()) {
-                Alimento TEMP = new Alimento(c.getString(0), c.getFloat(1), c.getFloat(2), c.getFloat(3));
+                Alimento TEMP = new Alimento(c.getString(0), c.getString(1), c.getString(2), c.getString(3));
                 Alimentos.add(TEMP);
+                Log.println(Log.DEBUG,"ID",Alimentos.get(0).getNombre());
             }
+            c.close();
         }
         AdaptorListaGeneral a = new AdaptorListaGeneral(ListadoAlimentos.this, Alimentos);
+        AdaptorCreator(a);
+    }
+    public void AdaptorCreator(AdaptorListaGeneral a){
         LW_General.setAdapter(a);
         LW_General.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(ListadoAlimentos.this, "Wha?", Toast.LENGTH_SHORT).show();
-                AlertDialog.Builder Details = new AlertDialog.Builder(ListadoAlimentos.this);
-                LayoutInflater inflater = ListadoAlimentos.this.getLayoutInflater();
-                Details.setView(inflater.inflate(R.layout.detailedfood,null));
-                Details.create();
+                Log.println(Log.DEBUG,"ID",""+i);
+                Dialog Details = new Dialog(ListadoAlimentos.this);
+                Details.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                Details.setContentView(R.layout.detailedfood);
+                TextView Nombre = Details.findViewById(R.id.TW_Name);
+                Nombre.setText(Alimentos.get(i).getNombre());
+                TextView Azucar = Details.findViewById(R.id.TW_Azucar);
+                TextView Grasas = Details.findViewById(R.id.TW_Grasas);
+                TextView Sodio = Details.findViewById(R.id.TW_Sodio);
+                float CAzucar,CGrasas,CSodio;
+                String Trazas = "";
+                try{
+
+                    CAzucar = Float.parseFloat(Alimentos.get(i).getAzucar().replace(',','.'));
+                }catch (Exception X){
+                    CAzucar = 0;
+                    Trazas = Trazas+"Azucar";
+                }
+                try{
+                    CGrasas = Float.parseFloat(Alimentos.get(i).getGrasa().replace(',','.'));
+                }catch (Exception X){
+                    CGrasas = 0;
+                    if(Trazas.equals("")){
+                        Trazas = Trazas+"Grasas";
+                    }else{
+                        Trazas = Trazas+",Grasas";
+                    }
+                }
+                try{
+                    CSodio = Float.parseFloat(Alimentos.get(i).getSodio().replace(',','.'));
+                }catch (Exception X){
+                    CSodio = 0;
+                    if(Trazas.equals("")){
+                        Trazas = Trazas+"Sodio";
+                    }else{
+                        Trazas = Trazas+" y Sodio";
+                    }
+                }
+                Azucar.setText(""+CAzucar);
+                Grasas.setText(""+CGrasas);
+                Sodio.setText(""+CSodio);
+                Salud(CAzucar,CGrasas,CSodio,Nombre);
+
                 Details.show();
             }
         });
+    }
+
+    public void Salud(float Azucar, float Grasas, float Sodio, TextView Nombre){
+        if(Azucar <= L_Am_Azucar){
+            V_Azucar = 1;
+        }else if(Azucar <= L_Rj_Azucar){
+            V_Azucar = 2;
+        }else{
+            V_Azucar = 3;
+        }
+
+        if(Grasas <= L_Am_Grasas){
+            V_Grasas = 1;
+        }else if(Grasas <= L_Rj_Grasas){
+            V_Grasas = 2;
+        }else{
+            V_Grasas = 3;
+        }
+
+        if(Sodio <= L_Am_Sodio){
+            V_Sodio = 1;
+        }else if(Sodio <= L_Rj_Sodio){
+            V_Sodio = 2;
+        }else{
+            V_Sodio = 3;
+        }
+
+        int RES = V_Azucar+V_Grasas+V_Sodio;
+
+        if(RES == 3){
+            Nombre.setBackground(getResources().getDrawable(R.drawable.backg_verde));
+        }else if(RES <= 5){
+            Nombre.setBackground(getResources().getDrawable(R.drawable.backg_amarillo));
+        }else{
+            if(V_Sodio == 2 && V_Grasas == 2 && V_Azucar == 2){
+                Nombre.setBackground(getResources().getDrawable(R.drawable.backg_amarillo));
+            }else{
+                Nombre.setBackground(getResources().getDrawable(R.drawable.backg_rojo));
+            }
+        }
     }
 }
