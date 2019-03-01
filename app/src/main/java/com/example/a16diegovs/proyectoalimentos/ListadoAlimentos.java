@@ -217,14 +217,14 @@ public class ListadoAlimentos extends AppCompatActivity implements NavigationVie
         int RES = V_Azucar+V_Grasas+V_Sodio;
 
         if(RES == 3){
-            Nombre.setBackground(getResources().getDrawable(R.drawable.backg_verde));
+            Nombre.setBackgroundResource(R.drawable.backg_verde);
         }else if(RES <= 5){
-            Nombre.setBackground(getResources().getDrawable(R.drawable.backg_amarillo));
+            Nombre.setBackgroundResource(R.drawable.backg_amarillo);
         }else{
             if(V_Sodio == 2 && V_Grasas == 2 && V_Azucar == 2){
-                Nombre.setBackground(getResources().getDrawable(R.drawable.backg_amarillo));
+                Nombre.setBackgroundResource(R.drawable.backg_amarillo);
             }else{
-                Nombre.setBackground(getResources().getDrawable(R.drawable.backg_rojo));
+                Nombre.setBackgroundResource(R.drawable.backg_rojo);
             }
         }
     }

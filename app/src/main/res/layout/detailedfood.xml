@@ -31,6 +31,7 @@
         android:layout_marginTop="28dp"
         android:layout_marginEnd="80dp"
         android:text="PH"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="18dp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,6 +47,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="80dp"
         android:text="PH"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="18dp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,6 +64,7 @@
         android:layout_marginEnd="80dp"
         android:layout_marginBottom="20dp"
         android:text="PH"
+        android:textColor="@color/colorPrimaryDark"
         android:textAlignment="center"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -79,6 +82,7 @@
         android:layout_marginTop="28dp"
         android:text="@string/Azucar"
         android:textSize="18dp"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TW_Name" />
 
@@ -90,6 +94,7 @@
         android:layout_marginTop="32dp"
         android:text="@string/Grasa"
         android:textSize="18dp"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -102,6 +107,7 @@
         android:layout_marginBottom="20dp"
         android:text="@string/Sodio"
         android:textSize="18dp"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
