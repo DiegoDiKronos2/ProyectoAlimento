@@ -29,6 +29,15 @@
     <string name="Azucar">Azucres simples(g)</string>
     <string name="Grasa">Graxas saturadas(g)</string>
     <string name="Sodio">Sodio(mg)</string>
+    <string name="MenuVacio">O menú está baleiro</string>
+    <string name="Add">Engadir</string>
+    <string name="Remove">Borrar</string>
+    <string name="Empty">Baleirar</string>
+    <string name="ToMenu">Vaia ao menú escollido</string>
+    <string name="Calc">Calcular</string>
+    <string name="MenuV">O menú é saudable</string>
+    <string name="MenuA">O menú é medianamente saudable</string>
+    <string name="MenuR">O menú non é saudable</string>
 
     <string name="title_activity_listado_principal">listado_principal</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

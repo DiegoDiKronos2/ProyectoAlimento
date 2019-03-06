@@ -13,11 +13,13 @@ import java.util.ArrayList;
 public class AdaptorListaGeneral extends ArrayAdapter {
     private Activity context;
     private ArrayList<Alimento>Alimentos;
+    private int LayoutToUse;
 
-    public AdaptorListaGeneral(@NonNull Activity context, @NonNull ArrayList<Alimento> Alimentos) {
+    public AdaptorListaGeneral(@NonNull Activity context, @NonNull ArrayList<Alimento> Alimentos,int LayoutToUse) {
         super(context, R.layout.listaprincipal_row, Alimentos);
         this.context = context;
         this.Alimentos = Alimentos;
+        this.LayoutToUse = LayoutToUse;
     }
 
     public View getView(int pos, View view, ViewGroup parent) {
@@ -26,7 +28,7 @@ public class AdaptorListaGeneral extends ArrayAdapter {
         ViewHolder holder;
         if (fila == null) {
             LayoutInflater li = context.getLayoutInflater();
-            fila = li.inflate(R.layout.listaprincipal_row, null);
+            fila = li.inflate(LayoutToUse, null);
 
             holder = new ViewHolder();
             holder.nombre = fila.findViewById(R.id.LR_Name);

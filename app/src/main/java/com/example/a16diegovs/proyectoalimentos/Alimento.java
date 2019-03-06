@@ -2,7 +2,9 @@ package com.example.a16diegovs.proyectoalimentos;
 
 import android.widget.ImageView;
 
-public class Alimento {
+import java.io.Serializable;
+
+public class Alimento implements Serializable {
     String Nombre,Azucar,Grasa,Sodio;
     boolean Liquid;
 

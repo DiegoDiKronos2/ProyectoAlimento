@@ -1,6 +1,7 @@
 package com.example.a16diegovs.proyectoalimentos;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -16,9 +17,11 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +32,7 @@ import java.util.List;
 public class ListadoAlimentos extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     ArrayList<Alimento> Alimentos = new ArrayList<>();
+    ArrayList<Alimento> Menu;
     ListView LW_General;
     SQLiteDatabase BD;
     String[] TABLAS;
@@ -63,6 +67,9 @@ public class ListadoAlimentos extends AppCompatActivity implements NavigationVie
         getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
         LW_General = findViewById(R.id.LW_AlimentosGeneral);
 
+        Menu = (ArrayList<Alimento>) getIntent().getSerializableExtra("Menu");
+        setResult(RESULT_OK,getIntent());
+
         DBHelper Helper = new DBHelper(ListadoAlimentos.this);
         BD = Helper.getReadableDatabase();
         TABLAS = getResources().getStringArray(R.array.Tablas);
@@ -85,25 +92,40 @@ public class ListadoAlimentos extends AppCompatActivity implements NavigationVie
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.Cons_0) {
-            ListLoad();
-        } else if (id == R.id.Cons_1) {
-            ListLoad(TABLAS[0]);
-        } else if (id == R.id.Cons_2) {
-            ListLoad(TABLAS[1]);
-        } else if (id == R.id.Cons_3) {
-            ListLoad(TABLAS[2]);
-        } else if (id == R.id.Cons_4) {
-            ListLoad(TABLAS[3]);
-        } else if (id == R.id.Cons_5) {
-            ListLoad(TABLAS[4]);
-        } else if (id == R.id.Cons_6) {
-            ListLoad(TABLAS[5]);
-        } else if (id == R.id.Cons_7) {
-            ListLoad(TABLAS[6]);
-        } else if (id == R.id.Cons_8) {
-            //ListLoad(TABLAS[7]);
-            Toast.makeText(this, "Jaja, a la BD no le gustan las verduras sorry", Toast.LENGTH_SHORT).show();
+        switch (id){
+            case R.id.Cons_0:
+                ListLoad();
+                break;
+            case R.id.Cons_1:
+                ListLoad(TABLAS[0]);
+                break;
+            case R.id.Cons_2:
+                ListLoad(TABLAS[1]);
+                break;
+            case R.id.Cons_3:
+                ListLoad(TABLAS[2]);
+                break;
+            case R.id.Cons_4:
+                ListLoad(TABLAS[3]);
+                break;
+            case R.id.Cons_5:
+                ListLoad(TABLAS[4]);
+                break;
+            case R.id.Cons_6:
+                ListLoad(TABLAS[5]);
+                break;
+            case R.id.Cons_7:
+                ListLoad(TABLAS[6]);
+                break;
+            case R.id.Cons_8:
+                //ListLoad(TABLAS[7]);
+                Toast.makeText(this, "Jaja, a la BD no le gustan las verduras sorry", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.ToMenu:
+                Intent i = new Intent(ListadoAlimentos.this,Menus.class);
+                i.putExtra("Menu", Menu);
+                startActivityForResult(i,1);
+                break;
         }
         item.setIcon(R.drawable.iconmenu_selected);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -118,7 +140,7 @@ public class ListadoAlimentos extends AppCompatActivity implements NavigationVie
             Alimento TEMP = new Alimento(c.getString(0), c.getString(1), c.getString(2), c.getString(3));
             Alimentos.add(TEMP);
         }
-        AdaptorListaGeneral a = new AdaptorListaGeneral(ListadoAlimentos.this, Alimentos);
+        AdaptorListaGeneral a = new AdaptorListaGeneral(ListadoAlimentos.this, Alimentos,R.layout.listaprincipal_row);
         AdaptorCreator(a);
     }
 
@@ -133,14 +155,14 @@ public class ListadoAlimentos extends AppCompatActivity implements NavigationVie
             }
             c.close();
         }
-        AdaptorListaGeneral a = new AdaptorListaGeneral(ListadoAlimentos.this, Alimentos);
+        AdaptorListaGeneral a = new AdaptorListaGeneral(ListadoAlimentos.this, Alimentos,R.layout.listaprincipal_row);
         AdaptorCreator(a);
     }
     public void AdaptorCreator(AdaptorListaGeneral a){
         LW_General.setAdapter(a);
         LW_General.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 Log.println(Log.DEBUG,"ID",""+i);
                 Dialog Details = new Dialog(ListadoAlimentos.this);
                 Details.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -150,41 +172,44 @@ public class ListadoAlimentos extends AppCompatActivity implements NavigationVie
                 TextView Azucar = Details.findViewById(R.id.TW_Azucar);
                 TextView Grasas = Details.findViewById(R.id.TW_Grasas);
                 TextView Sodio = Details.findViewById(R.id.TW_Sodio);
-                float CAzucar,CGrasas,CSodio;
-                String Trazas = "";
-                try{
-
-                    CAzucar = Float.parseFloat(Alimentos.get(i).getAzucar().replace(',','.'));
-                }catch (Exception X){
-                    CAzucar = 0;
-                    Trazas = Trazas+"Azucar";
+                float[] Values;
+                Values = Conversor(Alimentos.get(i).getAzucar(),Alimentos.get(i).getGrasa(),Alimentos.get(i).getSodio());
+                if(Values[0] >= 0){
+                    Azucar.setText(String.format("%.2f", Values[0]));
+                }else{
+                    Azucar.setText("Trazas");
                 }
-                try{
-                    CGrasas = Float.parseFloat(Alimentos.get(i).getGrasa().replace(',','.'));
-                }catch (Exception X){
-                    CGrasas = 0;
-                    if(Trazas.equals("")){
-                        Trazas = Trazas+"Grasas";
-                    }else{
-                        Trazas = Trazas+",Grasas";
-                    }
+                if(Values[1] >= 0){
+                    Grasas.setText(String.format("%.2f", Values[1]));
+                }else{
+                    Grasas.setText("Trazas");
                 }
-                try{
-                    CSodio = Float.parseFloat(Alimentos.get(i).getSodio().replace(',','.'));
-                }catch (Exception X){
-                    CSodio = 0;
-                    if(Trazas.equals("")){
-                        Trazas = Trazas+"Sodio";
-                    }else{
-                        Trazas = Trazas+" y Sodio";
-                    }
+                if(Values[2] >= 0){
+                    Sodio.setText(String.format("%.2f", Values[2]));
+                }else{
+                    Sodio.setText("Trazas");
                 }
-                Azucar.setText(""+CAzucar);
-                Grasas.setText(""+CGrasas);
-                Sodio.setText(""+CSodio);
-                Salud(CAzucar,CGrasas,CSodio,Nombre);
+                Salud(Values[0],Values[1],Values[2],Nombre);
 
                 Details.show();
+                final Button Add = Details.findViewById(R.id.BT_Add);
+                Add.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        if(motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                            Add.setBackgroundResource(R.drawable.backg_verde);
+                        } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                            Add.setBackgroundResource(R.drawable.texto_bonito);
+                            Menu.add(Alimentos.get(i));
+                            Toast.makeText(ListadoAlimentos.this, "Añadido: "+Alimentos.get(i).getNombre(), Toast.LENGTH_SHORT).show();
+
+                            Intent back = new Intent();
+                            back.putExtra("Menu",Menu);
+                            setResult(RESULT_OK,back);
+                        }
+                        return false;
+                    }
+                });
             }
         });
     }
@@ -227,5 +252,24 @@ public class ListadoAlimentos extends AppCompatActivity implements NavigationVie
                 Nombre.setBackgroundResource(R.drawable.backg_rojo);
             }
         }
+    }
+    public float[] Conversor(String Azucar, String Grasa, String Sodio){
+        float[] Values = new float[3];
+        try{
+            Values[0] = Float.parseFloat(Azucar.replace(',','.'));
+        }catch (Exception X){
+            Values[0] = -1;
+        }
+        try{
+            Values[1] = Float.parseFloat(Grasa.replace(',','.'));
+        }catch (Exception X){
+            Values[1] = -1;
+        }
+        try{
+            Values[2] = Float.parseFloat(Sodio.replace(',','.'));
+        }catch (Exception X){
+            Values[2] = -1;
+        }
+        return Values;
     }
 }
