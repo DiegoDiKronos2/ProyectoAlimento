@@ -12,7 +12,7 @@
         <item>verduras</item>
     </string-array>
 
-    <string name="app_name">ProxectoAlimentos</string>
+    <string name="app_name">Alimentación saludable</string>
     <string name="LM_Saludo">Bienvenido</string>
     <string name="LM_BT1">Consultar alimentos</string>
     <string name="LM_BT2">Formar un menú</string>
@@ -38,12 +38,12 @@
     <string name="MenuA">El menú es medianamente saludable</string>
     <string name="MenuR">El menú no es saludable</string>
 
-    <string name="title_activity_listado_principal">listado_principal</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="title_activity_listado_principal">Lista de alimentos</string>
+    <string name="navigation_drawer_open">Abrir navegación</string>
+    <string name="navigation_drawer_close">Cerrar navegación</string>
+    <string name="nav_header_title">Lista general de alimentos</string>
+    <string name="nav_header_subtitle">Puede filtrar la lista por los siguientes criterios</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_listado_alimentos">ListadoAlimentos</string>
+    <string name="action_settings">Opciones</string>
+    <string name="title_activity_listado_alimentos">Listado de alimentos</string>
 </resources>

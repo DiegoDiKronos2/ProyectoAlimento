@@ -180,6 +180,12 @@ public class Menus extends AppCompatActivity {
                 }
             });
         }else {
+            TW_Gen.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    return false;
+                }
+            });
             TW_Gen.setText(R.string.MenuVacio);
             TW_Gen.setBackgroundResource(R.drawable.texto_bonito);
             LLAz.setBackgroundResource(R.drawable.texto_bonito);

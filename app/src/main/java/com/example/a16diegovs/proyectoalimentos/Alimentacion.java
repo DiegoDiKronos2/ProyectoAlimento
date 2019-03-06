@@ -9,6 +9,7 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -35,16 +36,28 @@ public class Alimentacion extends AppCompatActivity {
         BT_Menu = findViewById(R.id.BT_ForMenu);
 
 
-        BT_Listado.setOnClickListener(new View.OnClickListener() {
+        BT_Listado.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                ToAlim();
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    BT_Listado.setBackgroundResource(R.drawable.backg_verde);
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    BT_Listado.setBackgroundResource(R.drawable.texto_bonito);
+                    ToAlim();
+                }
+                return false;
             }
         });
-        BT_Menu.setOnClickListener(new View.OnClickListener() {
+        BT_Menu.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                ToMenu();
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    BT_Menu.setBackgroundResource(R.drawable.backg_verde);
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    BT_Menu.setBackgroundResource(R.drawable.texto_bonito);
+                    ToMenu();
+                }
+                return false;
             }
         });
 

@@ -193,6 +193,11 @@ public class ListadoAlimentos extends AppCompatActivity implements NavigationVie
 
                 Details.show();
                 final Button Add = Details.findViewById(R.id.BT_Add);
+                for (Alimento A: Menu) {
+                    if(A.getNombre().equals(Alimentos.get(i).getNombre())){
+                        Add.setVisibility(View.GONE);
+                    }
+                }
                 Add.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -206,6 +211,7 @@ public class ListadoAlimentos extends AppCompatActivity implements NavigationVie
                             Intent back = new Intent();
                             back.putExtra("Menu",Menu);
                             setResult(RESULT_OK,back);
+                            Add.setVisibility(View.GONE);
                         }
                         return false;
                     }
