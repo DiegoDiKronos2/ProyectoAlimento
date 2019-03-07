@@ -189,7 +189,17 @@ public class ListadoAlimentos extends AppCompatActivity implements NavigationVie
                 }else{
                     Sodio.setText("Trazas");
                 }
-                Salud(Values[0],Values[1],Values[2],Nombre);
+                boolean ETERNAL_LIVE = false;
+                for (Alimento A : Alimentacion.LFrutas) {
+                    if(Alimentos.get(i).getNombre().equals(A.getNombre())){
+                        ETERNAL_LIVE = true;
+                    }
+                }
+                if(ETERNAL_LIVE == false){
+                    Salud(Values[0],Values[1],Values[2],Nombre);
+                }else{
+                    Salud(0,0,0,Nombre);
+                }
 
                 Details.show();
                 final Button Add = Details.findViewById(R.id.BT_Add);

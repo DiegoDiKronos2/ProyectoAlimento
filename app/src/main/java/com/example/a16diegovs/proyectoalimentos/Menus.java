@@ -3,6 +3,7 @@ package com.example.a16diegovs.proyectoalimentos;
 import android.app.Dialog;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -54,6 +55,9 @@ public class Menus extends AppCompatActivity {
         TW_Gr = findViewById(R.id.TW_M_Gr);
         TW_So = findViewById(R.id.TW_M_So);
         TW_Gen = findViewById(R.id.TW_M_General);
+
+        LinearLayout MLayout = findViewById(R.id.MLayout);
+        MLayout.getBackground().setAlpha(40);
 
         ChekOnMenu();
 
@@ -125,7 +129,17 @@ public class Menus extends AppCompatActivity {
                 }else{
                     Sodio.setText("Trazas");
                 }
-                Salud(Values[0],Values[1],Values[2],Nombre,null,null,null);
+                boolean ETERNAL_LIVE = false;
+                for (Alimento A : Alimentacion.LFrutas) {
+                    if(Menu.get(i).getNombre().equals(A.getNombre())){
+                        ETERNAL_LIVE = true;
+                    }
+                }
+                if(ETERNAL_LIVE == false){
+                    Salud(Values[0],Values[1],Values[2],Nombre,null,null,null);
+                }else{
+                    Salud(0,0,0,Nombre,null,null,null);
+                }
 
                 Add.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -166,15 +180,28 @@ public class Menus extends AppCompatActivity {
                             SSo = SSo + Values[2];
                             contador++;
                         }
-                        SAz = SAz/contador;
-                        SGr = SGr/contador;
-                        SSo = SSo/contador;
-
                         TW_Az.setText(String.format("%.2f", SAz));
                         TW_Gr.setText(String.format("%.2f", SGr));
                         TW_So.setText(String.format("%.2f", SSo));
 
-                        Salud(SAz,SGr,SSo,TW_Gen,LLAz,LLGr,LLSo);
+                        SAz = SAz/contador;
+                        SGr = SGr/contador;
+                        SSo = SSo/contador;
+                        int TotAlim = Menu.size();
+                        int Frut = 0;
+                        for (Alimento B: Menu) {
+                            for (Alimento A: Alimentacion.LFrutas) {
+                                if(A.getNombre().equals(B.getNombre())){
+                                    Frut++;
+                                }
+                            }
+                        }
+                        if(TotAlim == Frut){
+                            Salud(0,0,0,TW_Gen,LLAz,LLGr,LLSo);
+                        }else{
+                            Salud(SAz,SGr,SSo,TW_Gen,LLAz,LLGr,LLSo);
+                        }
+
                     }
                     return false;
                 }

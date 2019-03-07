@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Parcelable;
 import android.provider.Settings;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,17 +15,18 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class Alimentacion extends AppCompatActivity {
 
-    Button BT_Listado, BT_Menu;
+    Button BT_Listado, BT_Menu, BT_About;
     ArrayList<Alimento> Menu = new ArrayList<>();
     final int ID_LISTA_GENERAL = 0,
-            ID_MENU = 1,
-            ID_DIRECT_TO_OTHER = 99;
-
+            ID_MENU = 1;
+    static ArrayList<Alimento> LFrutas = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +36,10 @@ public class Alimentacion extends AppCompatActivity {
 
         BT_Listado = findViewById(R.id.BT_ConsultaA);
         BT_Menu = findViewById(R.id.BT_ForMenu);
-
+        BT_About = findViewById(R.id.BT_About);
+        ConstraintLayout MP = findViewById(R.id.MPrincipal);
+        MP.getBackground().setAlpha(80);
+        ChargeFList();
 
         BT_Listado.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -61,6 +66,13 @@ public class Alimentacion extends AppCompatActivity {
             }
         });
 
+        BT_About.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Alimentacion.this, "Creado por Diego Vilariño Serqueira", Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
     public void ToAlim(){
         Intent i = new Intent(Alimentacion.this,ListadoAlimentos.class);
@@ -77,5 +89,15 @@ public class Alimentacion extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Menu = (ArrayList<Alimento>) data.getExtras().getSerializable("Menu");
+    }
+
+    public void ChargeFList(){
+        DBHelper Helper = new DBHelper(Alimentacion.this);
+        SQLiteDatabase BD = Helper.getReadableDatabase();
+        Cursor c = BD.rawQuery("SELECT * FROM 'froita';", null);
+        while (c.moveToNext()) {
+            Alimento TEMP = new Alimento(c.getString(0), c.getString(1), c.getString(2), c.getString(3));
+            LFrutas.add(TEMP);
+        }
     }
 }
