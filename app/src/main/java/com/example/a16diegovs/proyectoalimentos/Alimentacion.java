@@ -1,5 +1,6 @@
 package com.example.a16diegovs.proyectoalimentos;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,16 +17,16 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class Alimentacion extends AppCompatActivity {
 
-    Button BT_Listado, BT_Menu, BT_About;
+    Button BT_Listado, BT_About;
     ArrayList<Alimento> Menu = new ArrayList<>();
-    final int ID_LISTA_GENERAL = 0,
-            ID_MENU = 1;
+    final int ID_LISTA_GENERAL = 0;
     static ArrayList<Alimento> LFrutas = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,6 @@ public class Alimentacion extends AppCompatActivity {
         getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
 
         BT_Listado = findViewById(R.id.BT_ConsultaA);
-        BT_Menu = findViewById(R.id.BT_ForMenu);
         BT_About = findViewById(R.id.BT_About);
         ConstraintLayout MP = findViewById(R.id.MPrincipal);
         MP.getBackground().setAlpha(80);
@@ -53,23 +53,14 @@ public class Alimentacion extends AppCompatActivity {
                 return false;
             }
         });
-        BT_Menu.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    BT_Menu.setBackgroundResource(R.drawable.backg_verde);
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    BT_Menu.setBackgroundResource(R.drawable.texto_bonito);
-                    ToMenu();
-                }
-                return false;
-            }
-        });
 
         BT_About.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Alimentacion.this, "Creado por Diego Vilariño Serqueira", Toast.LENGTH_LONG).show();
+                Dialog Details = new Dialog(Alimentacion.this);
+                Details.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                Details.setContentView(R.layout.about);
+                Details.show();
             }
         });
 
@@ -78,11 +69,6 @@ public class Alimentacion extends AppCompatActivity {
         Intent i = new Intent(Alimentacion.this,ListadoAlimentos.class);
         i.putExtra("Menu", Menu);
         startActivityForResult(i,ID_LISTA_GENERAL);
-    }
-    public void ToMenu(){
-        Intent i = new Intent(Alimentacion.this,Menus.class);
-        i.putExtra("Menu", Menu);
-        startActivityForResult(i,ID_MENU);
     }
 
     @Override

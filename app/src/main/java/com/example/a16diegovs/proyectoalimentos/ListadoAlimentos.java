@@ -119,12 +119,6 @@ public class ListadoAlimentos extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.Cons_8:
                 //ListLoad(TABLAS[7]);
-                Toast.makeText(this, "Jaja, a la BD no le gustan las verduras sorry", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.ToMenu:
-                Intent i = new Intent(ListadoAlimentos.this,Menus.class);
-                i.putExtra("Menu", Menu);
-                startActivityForResult(i,1);
                 break;
         }
         item.setIcon(R.drawable.iconmenu_selected);
@@ -202,30 +196,6 @@ public class ListadoAlimentos extends AppCompatActivity implements NavigationVie
                 }
 
                 Details.show();
-                final Button Add = Details.findViewById(R.id.BT_Add);
-                for (Alimento A: Menu) {
-                    if(A.getNombre().equals(Alimentos.get(i).getNombre())){
-                        Add.setVisibility(View.GONE);
-                    }
-                }
-                Add.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-                        if(motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                            Add.setBackgroundResource(R.drawable.backg_verde);
-                        } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                            Add.setBackgroundResource(R.drawable.texto_bonito);
-                            Menu.add(Alimentos.get(i));
-                            Toast.makeText(ListadoAlimentos.this, "Añadido: "+Alimentos.get(i).getNombre(), Toast.LENGTH_SHORT).show();
-
-                            Intent back = new Intent();
-                            back.putExtra("Menu",Menu);
-                            setResult(RESULT_OK,back);
-                            Add.setVisibility(View.GONE);
-                        }
-                        return false;
-                    }
-                });
             }
         });
     }
